@@ -4,7 +4,6 @@
  * for the term it's searching for, finally the application parses the information into a new excel document which is generated in the same folder as the screen shots.
  */
 
-
 package GoogleSearch;
 
 import java.awt.*;
@@ -24,10 +23,11 @@ import jxl.write.WriteException;
 
 public class Webwork {
 
-    public static void FFLaunch(String[] a) throws IOException {
+    public static void FFLaunch(String[] testData, String mainFolder) throws IOException {
     	
         // Firefox browser setup
-        System.setProperty("webdriver.gecko.driver","C:\\Users\\Yggdrasil\\Desktop\\coding\\Selenium\\jar files and resources\\geckodriver.exe");
+    	File file = new File(System.getProperty("user.home") + "\\Desktop\\Drivers\\geckodriver.exe");
+        System.setProperty("webdriver.gecko.driver", file.getAbsolutePath());
         DesiredCapabilities capabilities = DesiredCapabilities.firefox();
         capabilities.setCapability("marionette", true);
         
@@ -36,13 +36,16 @@ public class Webwork {
         Write output = new Write();
         String browser = "FF";
         
+        //---make directory
+        FolderMaker(mainFolder + "\\" + browser);
+        
         //---run test
-        String[] results = Test(FFdriver, a, browser);
+        String[] results = Test(FFdriver, testData, browser);
         
         //--generate excel documents with findings
         try{
-			output.setOutputFile("C:\\Users\\Yggdrasil\\Desktop\\coding\\Selenium\\ScreenCaps\\" + browser +"\\results.xls");
-			output.write(results,a);
+        	output.setOutputFile(System.getProperty("user.home") + "\\Desktop\\Results\\" + browser +"\\results.xls");
+        	output.write(results, testData);
 		
 		} catch(WriteException e){
 			
@@ -52,22 +55,25 @@ public class Webwork {
             
     }
    
-    public static void ChromeLaunch(String[] a) throws IOException{
+    public static void ChromeLaunch(String[] testData, String mainFolder) throws IOException{
         //Chrome browser setup
-        System.setProperty("webdriver.chrome.driver","C:\\Users\\Yggdrasil\\Desktop\\coding\\Selenium\\jar files and resources\\chromedriver.exe");
-        
+    	File file = new File(System.getProperty("user.home") + "\\Desktop\\Drivers\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", file.getAbsolutePath());
         //---instantiate objects
         WebDriver ChromeDriver = new ChromeDriver();
         Write output = new Write();
         String browser = "Chrome";
         
+      //---make directory
+        FolderMaker(mainFolder + "\\" + browser);
+        
         //---run test
-        String[] results = Test(ChromeDriver, a, browser);
+        String[] results = Test(ChromeDriver, testData, browser);
         
         
         try{
-			output.setOutputFile("C:\\Users\\Yggdrasil\\Desktop\\coding\\Selenium\\ScreenCaps\\" + browser +"\\results.xls");
-			output.write(results,a);
+        	output.setOutputFile(System.getProperty("user.home") + "\\Desktop\\Results\\" + browser +"\\results.xls");
+        	output.write(results,testData);
 		
 		} catch(WriteException e){
 			
@@ -78,21 +84,26 @@ public class Webwork {
     }
         
    
-    public static void IELaunch(String[] a) throws IOException{
+    public static void IELaunch(String[] testData, String mainFolder) throws IOException{
         //IE browser setup
-        File file = new File("C:\\Users\\Yggdrasil\\Desktop\\coding\\Selenium\\jar files and resources\\IEDriverServer32.exe");
+        File file = new File(System.getProperty("user.home") + "\\Desktop\\Drivers\\IEDriverServer32.exe");
         System.setProperty("webdriver.ie.driver", file.getAbsolutePath());
         
         //---instantiate objects
         WebDriver IEDriver = new InternetExplorerDriver();
         Write output = new Write();
         String browser = "IE";
-        String[] results = Test(IEDriver, a, browser);
+        
+      //---make directory
+        FolderMaker(mainFolder + "\\" + browser);
+        
+        //---run test
+        String[] results = Test(IEDriver, testData, browser);
         
         //--generate excel documents with findings
         try{
-			output.setOutputFile("C:\\Users\\Yggdrasil\\Desktop\\coding\\Selenium\\ScreenCaps\\" + browser +"\\results.xls");
-			output.write(results,a);
+			output.setOutputFile(System.getProperty("user.home") + "\\Desktop\\Results\\" + browser +"\\results.xls");
+			output.write(results,testData);
 		
 		} catch(WriteException e){
 			
@@ -102,7 +113,12 @@ public class Webwork {
             
     }
     
-    
+    public static void FolderMaker(String fileName){
+		String desktop = System.getProperty("user.home") + "\\Desktop";
+		System.out.println(desktop + "\\" + fileName + " created");
+		File dir = new File(desktop + "\\" + fileName);
+		dir.mkdirs();
+	}
     
     public static void ScreenCap(String a, String browser){
     	
@@ -113,12 +129,12 @@ public class Webwork {
     	
     	try{
         		   
-    		Robot image = new Robot();
-        	BufferedImage stuff = null;
-        	stuff = image.createScreenCapture(new Rectangle(screenRect));
+    		Robot robot = new Robot();
+        	BufferedImage image = null;
+        	image = robot.createScreenCapture(new Rectangle(screenRect));
         	   
-        	File output = new File("C:\\Users\\Yggdrasil\\Desktop\\coding\\Selenium\\ScreenCaps\\" + browser +"\\" + a + ".png");
-        	ImageIO.write(stuff, "png", output);
+        	File output = new File(System.getProperty("user.home") + "\\Desktop\\Results\\" + browser +"\\" + a + ".png");
+        	ImageIO.write(image, "png", output);
         	
     	} catch (Exception e) {
         		   
@@ -128,11 +144,11 @@ public class Webwork {
     }
     
     
-    public static String[] Test(WebDriver driver, String[] a, String browser){
+    public static String[] Test(WebDriver driver, String[] testData, String browser){
     	
     	//---instantiate variables and open browser
     	String resultStats, resultTime, resultNum;
-    	String[] resultOut = new String[a.length];
+    	String[] resultOut = new String[testData.length];
     	driver.get("http://www.google.com");
     	
        try{
@@ -141,11 +157,11 @@ public class Webwork {
            
         }
        
-       for(int i = 0; i< (a.length - 1); i++){
+       for(int i = 0; i< (testData.length - 1); i++){
        
     	   //--- navigate through search engine with data taken from document
     	   driver.findElement(By.id("lst-ib")).clear();
-    	   driver.findElement(By.id("lst-ib")).sendKeys(a[i]);
+    	   driver.findElement(By.id("lst-ib")).sendKeys(testData[i]);
     	   driver.findElement(By.xpath("//button[@ id='_fZl']")).click(); 
        	   
        	try{
@@ -161,10 +177,10 @@ public class Webwork {
        	resultTime = resultStats.substring((resultStats.length()-14),(resultStats.length()- 10));
        	
        	//read back data collected to console
-    	System.out.println("a[" + i + "] which is " + a[i] + " has " + resultNum + ", it took about " + resultTime +" seconds.");
+    	System.out.println("a[" + i + "] which is " + testData[i] + " has " + resultNum + ", it took about " + resultTime +" seconds.");
     	
     	//capture screen and save picture
-    	ScreenCap(a[i],browser);
+    	ScreenCap(testData[i],browser);
     	   
        }
        
@@ -180,6 +196,7 @@ public class Webwork {
 		
 		//Instantiate Objects
 		Read test = new Read();
+		String mainFolder = "Results";
 		
 		//---bringing the items from the excel document for searching
         test.setInputFile("C:\\Users\\Yggdrasil\\Desktop\\coding\\Selenium\\ExcelFiles\\SearchTerms.xls");
@@ -189,11 +206,12 @@ public class Webwork {
         for(int i = 0; i < (testData.length - 1); i++){
         	System.out.println("testData[" + i + "] = " + testData[i]);
         }
+        FolderMaker(mainFolder);
         
         //--- Call each browser
-		Webwork.FFLaunch(testData);
-		Webwork.ChromeLaunch(testData);
-		Webwork.IELaunch(testData);
+		Webwork.FFLaunch(testData, mainFolder);
+		Webwork.ChromeLaunch(testData, mainFolder);
+		Webwork.IELaunch(testData, mainFolder);
 		
 		System.out.println("Complete!");
 	}
