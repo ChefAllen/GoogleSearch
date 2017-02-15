@@ -30,4 +30,4 @@ The cell as a whole will be searched for not the individual words in the cell.
 
 ********** ToDo **********
 
-  figure out some way of having the libraries as part of the code so you don't have to download them seperatly. shouldn't be too difficult.
+  figure out some way of having the libraries as part of the code so you can compile the code from cmd and not be tied to going through a second party like eclipse which is where it was made. shouldn't be too difficult.
