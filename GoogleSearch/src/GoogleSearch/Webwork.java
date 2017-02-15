@@ -177,7 +177,7 @@ public class Webwork {
        	resultTime = resultStats.substring((resultStats.length()-14),(resultStats.length()- 10));
        	
        	//read back data collected to console
-    	System.out.println("a[" + i + "] which is " + testData[i] + " has " + resultNum + ", it took about " + resultTime +" seconds.");
+    	System.out.println("testData[" + i + "] has " + resultNum + ", it took about " + resultTime +" seconds.");
     	
     	//capture screen and save picture
     	ScreenCap(testData[i],browser);
@@ -199,7 +199,7 @@ public class Webwork {
 		String mainFolder = "Results";
 		
 		//---bringing the items from the excel document for searching
-        test.setInputFile("C:\\Users\\Yggdrasil\\Desktop\\coding\\Selenium\\ExcelFiles\\SearchTerms.xls");
+        test.setInputFile(System.getProperty("user.home") + "\\Desktop\\SearchTerms.xls");
         String[] testData = test.read();
         
         //---verify testdata present
