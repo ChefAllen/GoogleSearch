@@ -19,4 +19,9 @@ The cell as a whole will be searched for not the individual words in the cell.
 
 ********** Output **********
 
-  The script outputs first a results folder with will hold 3 folders labeled "Chrome", "Firefox", and "Internet Explorer". In each of those 3 folders the script will generate a .png file for each search term present in "SearchTerms.xls" and when complete with each search it will also generate "result.xls" which contains the search terms, how many results google got, and how long it took to find those results.
+  The script outputs first a results folder with will hold 3 folders labeled "Chrome", "Firefox", and "Internet Explorer". In each of those 3 folders the script will generate a .png file for each search term present in "SearchTerms.xls" and when complete with each search it will also generate "result.xls" which contains the search terms, how many results google got, and how long it took to find those results. The script also logs the steps as it goes through them.
+  
+  
+********** How To Run **********
+
+  The code has been compiled and it is present in the GoogleSearch\bin\GoogleSearch folder here and just run Webwork.class and it will exicute.
