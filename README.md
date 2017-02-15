@@ -25,3 +25,7 @@ The cell as a whole will be searched for not the individual words in the cell.
 ********** How To Run **********
 
   The code has been compiled and it is present in the GoogleSearch\bin\GoogleSearch folder here and just run Webwork.class and it will exicute.
+
+********** ToDo **********
+
+i need to sync my eclipse browser with github so i can properly have everything up load so these work as of right now you can see the code but it needs some jar files so that they function properly and those didn't come along for the trip. i will figure it out today
