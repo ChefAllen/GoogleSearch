@@ -34,7 +34,7 @@ public class Webwork {
         //---instantiate objects
         WebDriver FFdriver = new FirefoxDriver();
         Write output = new Write();
-        String browser = "FF";
+        String browser = "Firefox";
         
         //---make directory
         FolderMaker(mainFolder + "\\" + browser);
@@ -92,7 +92,7 @@ public class Webwork {
         //---instantiate objects
         WebDriver IEDriver = new InternetExplorerDriver();
         Write output = new Write();
-        String browser = "IE";
+        String browser = "InternetExplorer";
         
       //---make directory
         FolderMaker(mainFolder + "\\" + browser);
