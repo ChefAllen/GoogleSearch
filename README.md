@@ -9,6 +9,8 @@ it will do this for Firefox, Chrome, and Internet Explorer
 ********** Requirements **********
 
   The code can run from anywhere but the "Drivers" folder and the "SearchTerms.xls" need to be on the desktop and the desktop should be in the user index. If it isn't then the program wont be able to find what it needs to operate properly and am error will be generated.
+  
+  You will also need 4 libraries "client-combined-3.0.1-nodeps", "junit-4.10", "jxl-2.6", and "selenium-server-standalone" to run the script properly.
 
 ********** Input **********
 
@@ -28,4 +30,4 @@ The cell as a whole will be searched for not the individual words in the cell.
 
 ********** ToDo **********
 
-i need to sync my eclipse browser with github so i can properly have everything up load so these work as of right now you can see the code but it needs some jar files so that they function properly and those didn't come along for the trip. i will figure it out today
+  figure out some way of having the libraries as part of the code so you don't have to download them seperatly. shouldn't be too difficult.
